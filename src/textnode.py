@@ -1,15 +1,4 @@
-# TODO next step is to update the tests on images and perhaps links as well to cover off some edge cases suggested
-# TODO by Boots.
 
-# Testing with slight updates to see if the commit does in fact reset my streak!
-
-# A thoughtful point! For most cases, what you’re testing is sufficient. But as your program grows, you might consider these possible scenarios:
-#
-# Different alt texts: Try varied alt text, including empty strings, to see how your function handles them.
-# Invalid/missing URLs: What if the url parameter is None, an empty string, or has unexpected characters?
-# Long or special characters: What if the alt or url contains special or Unicode characters? Does your code handle them without breaking?
-# Extra arguments: What if someone constructs a TextNode with additional or unexpected properties? Does your function only use the ones it’s supposed to?
-# Why might it be important to consider unusual or edge-case data, even if your initial input data is always “normal”?
 
 
 

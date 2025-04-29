@@ -77,6 +77,28 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, "This is some link anchor text")
         self.assertEqual(html_node.props, {"href": "google.com"})
 
+    def test_link_url_is_none(self):
+        node = TextNode("This is some link anchor text", TextType.LINK, None)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "This is some link anchor text")
+        self.assertEqual(html_node.props, {"href": None})
+
+    def test_link_with_special_chars(self):
+        url = "https://example.com/search?q=test&lang=en#section"
+        node = TextNode("Search results", TextType.LINK, url)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "Search results")
+        self.assertEqual(html_node.props, {"href": url})
+
+    def test_link_with_unicode(self):
+        url = "https://例子.测试"  # example.test in Chinese characters
+        node = TextNode("Unicode URL", TextType.LINK, url)
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "Unicode URL")
+        self.assertEqual(html_node.props, {"href": url})
 
     def test_images(self):
         node = TextNode("This is some image anchor text", TextType.IMAGE, "google.com")
@@ -84,6 +106,13 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "img")
         self.assertEqual(html_node.value, "")
         self.assertEqual(html_node.props, {"src": "google.com", "alt": "This is some image anchor text"})
+
+    def test_image_alt_text(self):
+        node = TextNode("", TextType.IMAGE, "google.com")
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "img")
+        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.props, {"src": "google.com", "alt": ""})
 
 
 if __name__ == "__main__":
