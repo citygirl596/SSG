@@ -38,8 +38,18 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             print(f"I have found {num_delimiters} occurrences of the delimiter {delimiter}")
             if num_delimiters % 2 == 0:
                 print("An even number of delimiters has been found")
-                # TODO now we need to strip up to first delimiter etc etc
-                # TODO we also need to then put each of the processed nodes into the return list
+                # calculate number of pairs
+                num_pairs = num_delimiters // 2
+                print(f"There are {num_pairs} pairs")
+                interim_list = node.text.split("`")
+                print("Here is the interim list")
+                print(interim_list)
+
+                for n in range(0,len(interim_list)-1,3):
+                    return_list.append(TextNode(f'"{interim_list[n]}"', TextType.TEXT))
+                    return_list.append(TextNode(f'"{interim_list[n+1]}"', TextType.CODE))
+                    return_list.append(TextNode(f'"{interim_list[n+2]}"', TextType.TEXT))
+
             else:
                 return_list.append(node)
         else:
@@ -64,7 +74,7 @@ def main():
 
     node1 = TextNode("This is text with a `code block` word", TextType.TEXT)
     node2 = TextNode("This is a different text node", TextType.BOLD)
-    input_list = [node1, node2]
+    input_list = [node1]
     new_nodes = split_nodes_delimiter(input_list, "`", TextType.CODE)
     print("Here are the new nodes")
     print(new_nodes)
