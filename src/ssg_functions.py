@@ -1,5 +1,23 @@
 from textnode import TextNode, TextType
 
+# TODO need to set up a bunch of tests
+
+# Ah, let me help you with thinking about test cases for the split_nodes_delimiter function!
+# While I didn't specifically give you four bullet points before (perhaps you're thinking of another conversation?),
+# I'm happy to suggest some test cases you should consider:
+#
+# Test with a basic example where the delimiter appears once (like your code block example)
+# Test with multiple instances of the same delimiter in a single text node
+# Test when the delimiter doesn't exist in the text at all
+# Test with different delimiters (backticks, asterisks, underscores)
+# Test when a node that's not TextType.TEXT is passed in (should remain unchanged)
+# Test the error case when there's no matching closing delimiter
+# Remember that your function needs to handle different types of delimiters for inline elements like code (`),
+# bold (**), and italic (_). The function should properly split TextNodes and assign the appropriate
+# TextType to each part.
+#
+# Would you like me to explain any of these test cases in more detail? Or would you prefer help with the
+# implementation of the function itself?
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
@@ -21,9 +39,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
                 for n in range(0,len(interim_list)):
                     if n % 2 == 0:
-                        return_list.append(TextNode(f"{interim_list[n]}", TextType.TEXT))
+                        return_list.append(TextNode(interim_list[n], TextType.TEXT))
                     else:
-                        return_list.append(TextNode(f"{interim_list[n]}", TextType.CODE))
+                        return_list.append(TextNode(interim_list[n], text_type))
 
             else:
                 raise ValueError("Unmatched delimiter, invalid markdown")
